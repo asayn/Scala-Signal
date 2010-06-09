@@ -19,7 +19,8 @@ object signal {
   
   /**
    * Stores all the active connections. Each <code>Signal</code> is associated
-   * with its connections by mapping its <code>scala.Predef.Manifest</code>
+   * with its connections by mapping its <code>scala.Predef.Manifest</code> to
+   * a <code>List</code> of <code>PartialFunction</code>s 
    */
   private var connectionMap = Map.empty[Any,List[PartialFunction[_, _]]]
   
@@ -30,7 +31,7 @@ object signal {
   
   /**
    * Dispatcher Actor. It receives <code>(manifestName:String, signal:Signal)</code>
-   * tuples and sends the passed-in <code>signal</code> to all the functions connected
+   * tuples and sends the first item <code>signal</code> to all the functions connected
    * to the <code>Signal</code> which Manifest name is <code>manifestName<code>
    */
   private val dispatcher = new Actor {
@@ -40,6 +41,7 @@ object signal {
         receive {
           case (manifestName, signal) => {
             try {
+              // retrieves the connections
               connectionMap(manifestName) foreach { c =>
                 try {
                   // invoke the connected partial function with the passed-in signal
@@ -85,7 +87,7 @@ object signal {
   }
   
   /**
-   * Signal emitter abstraction. Any entity that wants to declare Signals has to 
+   * Signal emitter abstraction. Any entity that wants to declare <code>Signal</code>s has to 
    * implement this trait. 
    */
   trait SignalEmitter {

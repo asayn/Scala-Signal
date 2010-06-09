@@ -6,9 +6,9 @@ object signalExample extends Application {
   
 
   object objA extends SignalEmitter {
-  	case class MySignal(s:String, i:Int) extends Signal;
+    case class MySignal(s:String, i:Int) extends Signal;
   
-  	def doSomething(s:String, i:Int) = {
+    def doSomething(s:String, i:Int) = {
       // triggers MySignal with the values passed in parameters
       emit(MySignal(s,i))
     }
