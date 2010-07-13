@@ -32,5 +32,4 @@ object signalExample extends Application {
   objA.doSomething("efgh", 12)
   
   stopDispatcher
-  
 }
