@@ -83,7 +83,7 @@ object signal {
     /**
      * provides the "Secret owner". Only accessible inside the <code>signal</code> singleton
      */
-    private[signal] def getOwner():SignalOwner = owner
+    private[signal] def getOwner() = owner
   }
   
   /**
@@ -166,7 +166,7 @@ object signal {
    * @param owner the required "Secret owner" of the <code>Signal</code>
    * @param m implicit <code>scala.Predef.Manifest</code> corresponding to
    * the passed-in <code>Signal</code> instance, allowing to retrieve all the 
-   * connections associated with the involvedsignal
+   * connections associated with the involved signal
    * @return true if succeeded, false otherwise
    */
   def emitSignal[T<:Signal](signal:T, owner:SignalOwner)(implicit m: Manifest[T]):Boolean = {
